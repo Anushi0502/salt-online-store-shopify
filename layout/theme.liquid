@@ -1,13 +1,14 @@
 <!doctype html>
 <html lang="{{ request.locale.iso_code }}">
   <head>
-    <meta charset="utf-8">
+     <meta name="google-site-verification" content="DPgZx-vhEB4PIX6KKeKT_apV0ZsHiMG1BZX0s3F3u8c" />
+     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
     <meta name="theme-color" content="#1e3a6e">
     {% assign salt_route = request.path %}
     {% assign salt_seo_title = page_title | default: shop.name %}
       {% assign salt_seo_description = page_description | default: shop.description | default: 'SALT is a curated online store for practical, giftable finds across home, kitchen, travel, pet care, wellness, style, and everyday essentials.' %}
-    {% assign salt_seo_robots = 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1' %}
+    {% assign salt_seo_robots = 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1' %}<head>
     {% assign salt_seo_canonical = canonical_url | split: '?' | first %}
     {% assign salt_custom_canonical = false %}
     {% assign salt_product_canonical_alias = '' %}
