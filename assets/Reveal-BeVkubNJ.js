@@ -1,1 +1,1 @@
-import{j as t,Q as l}from"./salt-entry-3b5a12f276e3.js";const r=({children:a,className:s,delayMs:e=0})=>t.jsx("div",{className:l("salt-reveal",s),style:{"--salt-reveal-delay":`${Math.max(0,e)}ms`},children:a});export{r as R};
+import{j as t,Q as l}from"./index-B6FRL8qI.js";const r=({children:a,className:s,delayMs:e=0})=>t.jsx("div",{className:l("salt-reveal",s),style:{"--salt-reveal-delay":`${Math.max(0,e)}ms`},children:a});export{r as R};

@@ -1,3 +1,2 @@
-const __saltThemeAsset=(path)=>{const value=String(path);return new URL(value.startsWith("./")?value.slice(2):value,import.meta.url).href};
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["./web-CJJ3fygS.js","./index-CV4Cquht.js"])))=>i.map(i=>__saltThemeAsset(d[i]));
-import{a9 as e}from"./salt-entry-3b5a12f276e3.js";import{r as p}from"./index-CV4Cquht.js";const i=p("App",{web:()=>e(()=>import("./web-CJJ3fygS.js"),__vite__mapDeps([0,1])).then(r=>new r.AppWeb)});export{i as App};
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/web-CJJ3fygS.js","assets/index-CV4Cquht.js"])))=>i.map(i=>d[i]);
+import{a9 as e}from"./index-B6FRL8qI.js";import{r as p}from"./index-CV4Cquht.js";const i=p("App",{web:()=>e(()=>import("./web-CJJ3fygS.js"),__vite__mapDeps([0,1])).then(r=>new r.AppWeb)});export{i as App};
