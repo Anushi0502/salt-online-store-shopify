@@ -617,26 +617,11 @@
       {% assign salt_schema_judgeme_rating_value = salt_schema_judgeme_rating | plus: 0 %}
       {% assign salt_schema_judgeme_review_count_value = salt_schema_judgeme_review_count | plus: 0 %}
       {% assign salt_schema_sku = 'salt-' | append: product.id %}
-      {%- comment -%}
-        SALT's own books carry an amazon-asin:<ASIN> tag. Amazon sells and ships
-        them (Shopify stock is held at 0 so Shopify never takes payment), so the
-        offer must point at Amazon and stay InStock.
-      {%- endcomment -%}
-      {% assign salt_amazon_asin = '' %}
-      {% for salt_tag in product.tags %}
-        {% assign salt_tag_lower = salt_tag | downcase %}
-        {% if salt_amazon_asin == blank and salt_tag_lower contains 'amazon-asin:' %}
-          {% assign salt_amazon_asin = salt_tag | split: ':' | last | strip | upcase %}
-        {% endif %}
-      {% endfor %}
       <script type="application/ld+json">
         {
           "@context": "https://schema.org",
-          "@type": {% if salt_amazon_asin != blank %}["Product", "Book"]{% else %}"Product"{% endif %},
+          "@type": "Product",
           "@id": {{ salt_schema_url | append: '#product' | json }},
-          {% if salt_amazon_asin != blank %}
-            "author": { "@type": "Person", "name": "Courtney R. Jones" },
-          {% endif %}
           "mainEntityOfPage": {{ salt_schema_url | json }},
           "name": {{ salt_schema_product_name | json }},
           "description": {{ salt_schema_description | json }},
@@ -651,15 +636,10 @@
           "url": {{ salt_schema_url | json }},
           "offers": {
             "@type": "Offer",
-            {% if salt_amazon_asin != blank %}
-              "url": {{ 'https://www.amazon.com/dp/' | append: salt_amazon_asin | json }},
-              "seller": { "@type": "Organization", "name": "Amazon.com" },
-            {% else %}
-              "url": {{ salt_schema_url | json }},
-            {% endif %}
+            "url": {{ salt_schema_url | json }},
             "priceCurrency": {{ shop.currency | json }},
             "price": {{ salt_schema_variant.price | divided_by: 100.0 | json }},
-            "availability": "{% if salt_amazon_asin != blank or salt_schema_variant.available %}https://schema.org/InStock{% else %}https://schema.org/OutOfStock{% endif %}",
+            "availability": "{% if salt_schema_variant.available %}https://schema.org/InStock{% else %}https://schema.org/OutOfStock{% endif %}",
             "itemCondition": "https://schema.org/NewCondition",
             "shippingDetails": {
               "@type": "OfferShippingDetails",
@@ -737,13 +717,13 @@
         });
       })();
     </script>
-    {% if "salt-entry-2a70ef18da5c.js" != blank %}
-      <link rel="modulepreload" href="{{ "salt-entry-2a70ef18da5c.js" | asset_url | split: '?' | first }}" fetchpriority="high">
+    {% if "salt-entry-37ae1c13380a.js" != blank %}
+      <link rel="modulepreload" href="{{ "salt-entry-37ae1c13380a.js" | asset_url | split: '?' | first }}" fetchpriority="high">
     {% endif %}
-    {% if request.page_type == 'product' and "ProductPage-LXsWu0Cx.js" != blank %}
-      <link rel="modulepreload" href="{{ "ProductPage-LXsWu0Cx.js" | asset_url | split: '?' | first }}" fetchpriority="high">
-    {% elsif request.path == '/' and "HomePage-ipOcbo-m.js" != blank %}
-      <link rel="modulepreload" href="{{ "HomePage-ipOcbo-m.js" | asset_url | split: '?' | first }}">
+    {% if request.page_type == 'product' and "ProductPage-BAbYnvGk.js" != blank %}
+      <link rel="modulepreload" href="{{ "ProductPage-BAbYnvGk.js" | asset_url | split: '?' | first }}" fetchpriority="high">
+    {% elsif request.path == '/' and "HomePage-SdfFoU_U.js" != blank %}
+      <link rel="modulepreload" href="{{ "HomePage-SdfFoU_U.js" | asset_url | split: '?' | first }}">
     {% endif %}
     {% if request.page_type == 'product' %}
       {%- comment -%}
@@ -1020,11 +1000,11 @@
             generatedAt: {{ 'now' | date: '%Y-%m-%dT%H:%M:%SZ' | json }},
             source: 'shopify-liquid:home-collections',
             sections: {
-              "bundleSave": {
-    "title": "Bundle & Save",
-    "handle": "bundle-save",
+              "kids": {
+    "title": "Kids",
+    "handle": "kids",
     "products": [
-      {% assign salt_home_collection = collections["bundle-save"] %}
+      {% assign salt_home_collection = collections["kids"] %}
       {% for item in salt_home_collection.products limit: 12 %}
         {% assign salt_home_judgeme_badge = item.metafields.judgeme.badge | default: '' %}
     {% assign salt_home_judgeme_rating = salt_home_judgeme_badge | split: "data-average-rating='" | last | split: "'" | first %}
@@ -1042,11 +1022,11 @@
       {% endfor %}
     ]
   },
-"holidayGifts": {
-    "title": "Holiday Gifts",
-    "handle": "holiday-gifts",
+"footwear": {
+    "title": "Footwear",
+    "handle": "footwear",
     "products": [
-      {% assign salt_home_collection = collections["holiday-gifts"] %}
+      {% assign salt_home_collection = collections["footwear"] %}
       {% for item in salt_home_collection.products limit: 12 %}
         {% assign salt_home_judgeme_badge = item.metafields.judgeme.badge | default: '' %}
     {% assign salt_home_judgeme_rating = salt_home_judgeme_badge | split: "data-average-rating='" | last | split: "'" | first %}
@@ -1064,11 +1044,11 @@
       {% endfor %}
     ]
   },
-"kitchenGadgets": {
-    "title": "Kitchen Gadgets",
-    "handle": "kitchen-gadgets",
+"bestSellers": {
+    "title": "Best Sellers",
+    "handle": "best-sellers",
     "products": [
-      {% assign salt_home_collection = collections["kitchen-gadgets"] %}
+      {% assign salt_home_collection = collections["best-sellers"] %}
       {% for item in salt_home_collection.products limit: 12 %}
         {% assign salt_home_judgeme_badge = item.metafields.judgeme.badge | default: '' %}
     {% assign salt_home_judgeme_rating = salt_home_judgeme_badge | split: "data-average-rating='" | last | split: "'" | first %}
@@ -1086,11 +1066,55 @@
       {% endfor %}
     ]
   },
-"seniorPlanners": {
-    "title": "Senior Living & Planners",
-    "handle": "senior-living-solutions",
+"luxuryFragrances": {
+    "title": "Luxury Fragrances",
+    "handle": "luxury-fragrances",
     "products": [
-      {% assign salt_home_collection = collections["senior-living-solutions"] %}
+      {% assign salt_home_collection = collections["luxury-fragrances"] %}
+      {% for item in salt_home_collection.products limit: 12 %}
+        {% assign salt_home_judgeme_badge = item.metafields.judgeme.badge | default: '' %}
+    {% assign salt_home_judgeme_rating = salt_home_judgeme_badge | split: "data-average-rating='" | last | split: "'" | first %}
+    {% assign salt_home_judgeme_review_count = salt_home_judgeme_badge | split: "data-number-of-reviews='" | last | split: "'" | first %}
+    {
+    "id": {{ item.id | json }},
+    "title": {{ item.title | json }},
+    "handle": {{ item.handle | json }},
+    "image": {{ item.featured_image | image_url: width: 720 | json }},
+    "price": {{ item.price | divided_by: 100.0 | json }},
+    "compareAtPrice": {% if item.compare_at_price and item.compare_at_price > item.price %}{{ item.compare_at_price | divided_by: 100.0 | json }}{% else %}null{% endif %},
+    "averageRating": {% if salt_home_judgeme_badge contains "data-average-rating='" %}{{ salt_home_judgeme_rating | plus: 0 | json }}{% else %}null{% endif %},
+    "reviewCount": {% if salt_home_judgeme_badge contains "data-number-of-reviews='" %}{{ salt_home_judgeme_review_count | plus: 0 | json }}{% else %}null{% endif %}
+  }{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    ]
+  },
+"men": {
+    "title": "Men",
+    "handle": "men-collection",
+    "products": [
+      {% assign salt_home_collection = collections["men-collection"] %}
+      {% for item in salt_home_collection.products limit: 12 %}
+        {% assign salt_home_judgeme_badge = item.metafields.judgeme.badge | default: '' %}
+    {% assign salt_home_judgeme_rating = salt_home_judgeme_badge | split: "data-average-rating='" | last | split: "'" | first %}
+    {% assign salt_home_judgeme_review_count = salt_home_judgeme_badge | split: "data-number-of-reviews='" | last | split: "'" | first %}
+    {
+    "id": {{ item.id | json }},
+    "title": {{ item.title | json }},
+    "handle": {{ item.handle | json }},
+    "image": {{ item.featured_image | image_url: width: 720 | json }},
+    "price": {{ item.price | divided_by: 100.0 | json }},
+    "compareAtPrice": {% if item.compare_at_price and item.compare_at_price > item.price %}{{ item.compare_at_price | divided_by: 100.0 | json }}{% else %}null{% endif %},
+    "averageRating": {% if salt_home_judgeme_badge contains "data-average-rating='" %}{{ salt_home_judgeme_rating | plus: 0 | json }}{% else %}null{% endif %},
+    "reviewCount": {% if salt_home_judgeme_badge contains "data-number-of-reviews='" %}{{ salt_home_judgeme_review_count | plus: 0 | json }}{% else %}null{% endif %}
+  }{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    ]
+  },
+"women": {
+    "title": "Women",
+    "handle": "women",
+    "products": [
+      {% assign salt_home_collection = collections["women"] %}
       {% for item in salt_home_collection.products limit: 12 %}
         {% assign salt_home_judgeme_badge = item.metafields.judgeme.badge | default: '' %}
     {% assign salt_home_judgeme_rating = salt_home_judgeme_badge | split: "data-average-rating='" | last | split: "'" | first %}
@@ -1362,8 +1386,8 @@
         </script>
       {% endpaginate %}
     {% endif %}
-    {% if "salt-entry-2a70ef18da5c.js" != blank %}
-      <script type="module" src="{{ 'salt-app.js' | asset_url | split: '?' | first }}?v=mvpot6j7"></script>
+    {% if "salt-entry-37ae1c13380a.js" != blank %}
+      <script type="module" src="{{ 'salt-app.js' | asset_url | split: '?' | first }}?v=mvzhzu14"></script>
     {% else %}
     {% endif %}
   </head>
