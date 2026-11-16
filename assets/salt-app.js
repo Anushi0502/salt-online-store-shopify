@@ -14,7 +14,7 @@ window.addEventListener("vite:preloadError", (event) => {
 });
 const rawBase = globalThis.SALT_THEME_ASSET_BASE || new URL("./", import.meta.url).href;
 const base = rawBase.startsWith("//") ? window.location.protocol + rawBase : rawBase;
-import(new URL("salt-entry-34233e41ff6b.js", base).href)
+import(new URL("salt-entry-c44e7debbab6.js", base).href)
   .then(() => {
     try {
       sessionStorage.removeItem(saltPreloadRetryKey);
