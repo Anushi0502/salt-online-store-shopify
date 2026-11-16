@@ -1,0 +1,1 @@
+import{aa as a,b as t}from"./index-N02a6EYC.js";import{scheduleMetaPixelTask as r,trackMetaPixelPageView as o}from"./meta-pixel-zw22ex1j.js";import"./analytics-events-ClNYvOar.js";const l=()=>{const e=a();return t.useEffect(()=>r(o),[e.pathname,e.search]),null};export{l as default};
