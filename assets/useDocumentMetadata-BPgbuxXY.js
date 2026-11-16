@@ -1,4 +1,4 @@
-import{c as f,Q as y,j as e,L as g,C as v,b as k,R as j}from"./salt-entry-3b5a12f276e3.js";/**
+import{c as f,Q as y,j as e,L as g,C as v,b as k,R as j}from"./index-B6FRL8qI.js";/**
  * @license lucide-react v0.462.0 - ISC
  *
  * This source code is licensed under the ISC license.

@@ -1,1 +1,1 @@
-import{aa as a,b as t}from"./salt-entry-3b5a12f276e3.js";import{scheduleMetaPixelTask as r,trackMetaPixelPageView as o}from"./meta-pixel-5toUfZ2p.js";import"./analytics-events-ClNYvOar.js";const l=()=>{const e=a();return t.useEffect(()=>r(o),[e.pathname,e.search]),null};export{l as default};
+import{aa as a,b as t}from"./index-B6FRL8qI.js";import{scheduleMetaPixelTask as r,trackMetaPixelPageView as o}from"./meta-pixel-5toUfZ2p.js";import"./analytics-events-ClNYvOar.js";const l=()=>{const e=a();return t.useEffect(()=>r(o),[e.pathname,e.search]),null};export{l as default};
